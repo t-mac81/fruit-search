@@ -1,27 +1,41 @@
+import { fruit } from './fruit.js';
 const input = document.querySelector('#fruit');
 const suggestions = document.querySelector('.suggestions ul');
 
-const fruit = ['Apple', 'Apricot', 'Avocado 🥑', 'Banana', 'Bilberry', 'Blackberry', 'Blackcurrant', 'Blueberry', 'Boysenberry', 'Currant', 'Cherry', 'Coconut', 'Cranberry', 'Cucumber', 'Custard apple', 'Damson', 'Date', 'Dragonfruit', 'Durian', 'Elderberry', 'Feijoa', 'Fig', 'Gooseberry', 'Grape', 'Raisin', 'Grapefruit', 'Guava', 'Honeyberry', 'Huckleberry', 'Jabuticaba', 'Jackfruit', 'Jambul', 'Juniper berry', 'Kiwifruit', 'Kumquat', 'Lemon', 'Lime', 'Loquat', 'Longan', 'Lychee', 'Mango', 'Mangosteen', 'Marionberry', 'Melon', 'Cantaloupe', 'Honeydew', 'Watermelon', 'Miracle fruit', 'Mulberry', 'Nectarine', 'Nance', 'Olive', 'Orange', 'Clementine', 'Mandarine', 'Tangerine', 'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Persimmon', 'Plantain', 'Plum', 'Pineapple', 'Pomegranate', 'Pomelo', 'Quince', 'Raspberry', 'Salmonberry', 'Rambutan', 'Redcurrant', 'Salak', 'Satsuma', 'Soursop', 'Star fruit', 'Strawberry', 'Tamarillo', 'Tamarind', 'Yuzu'];
-
 function search(str) {
-	let results = [];
-
-	// TODO
-
-	return results;
+  let results = [];
+  if (str.length !== 0) {
+    results = fruit.filter(fruit => fruit.toLowerCase().includes(str));
+  }
+  return results;
 }
 
 function searchHandler(e) {
-	// TODO
+  const searchText = input.value.toLowerCase();
+  showSuggestions(search(searchText), searchText);
 }
 
 function showSuggestions(results, inputVal) {
-
-	// TODO
+  // clear the ul list (remove all children)
+  clearSuggestions();
+  //add the list of suggestions (use forEach to append li to ul)
+  results.forEach(result => {
+    const resultItem = document.createElement('li');
+    resultItem.innerText = result;
+    suggestions.append(resultItem);
+  });
 }
 
 function useSuggestion(e) {
-	// TODO
+  // add suggestion to input.value clear the suggestions list
+  const suggestion = e.target.innerText;
+  input.value = suggestion;
+  clearSuggestions();
+}
+
+function clearSuggestions() {
+  // clear the ul list (remove all children)
+  suggestions.innerHTML = '';
 }
 
 input.addEventListener('keyup', searchHandler);
