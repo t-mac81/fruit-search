@@ -16,7 +16,7 @@ function searchHandler(e) {
 }
 
 function showSuggestions(results, inputVal) {
-  // clear the ul list (remove all children)
+  // clear the suggestion list
   clearSuggestions();
   //add the list of suggestions (use forEach to append li to ul)
   results.forEach(result => {
@@ -34,7 +34,7 @@ function useSuggestion(e) {
 }
 
 function clearSuggestions() {
-  // clear the ul list (remove all children)
+  // clear the ul list
   suggestions.innerHTML = '';
 }
 
