@@ -4,7 +4,9 @@ const suggestions = document.querySelector('.suggestions ul');
 
 function search(str) {
   let results = [];
+  // only display results if there is a search string
   if (str.length !== 0) {
+    // filter fruit array by search string
     results = fruit.filter(fruit => fruit.toLowerCase().includes(str));
   }
   return results;
@@ -18,10 +20,26 @@ function searchHandler(e) {
 function showSuggestions(results, inputVal) {
   // clear the suggestion list
   clearSuggestions();
-  //add the list of suggestions (use forEach to append li to ul)
+  // add the list of suggestions (use forEach to append li to ul)
   results.forEach(result => {
     const resultItem = document.createElement('li');
-    resultItem.innerText = result;
+    // new string to bold
+    const boldResult = result
+      .toLowerCase()
+      .replaceAll(inputVal, `<b>${inputVal}</b>`);
+    //captialize bold result
+    let boldResultCap = '';
+    if (boldResult[0] === '<') {
+      boldResultCap = `<b>${boldResult
+        .charAt(3)
+        .toUpperCase()}${boldResult.slice(4)}`;
+    } else {
+      boldResultCap = `${boldResult.charAt(0).toUpperCase()}${boldResult.slice(
+        1
+      )}`;
+    }
+
+    resultItem.innerHTML = boldResultCap;
     suggestions.append(resultItem);
   });
 }
