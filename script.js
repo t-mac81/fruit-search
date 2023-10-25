@@ -27,33 +27,36 @@ function showSuggestions(results, inputVal) {
     const boldResult = result
       .toLowerCase()
       .replaceAll(inputVal, `<b>${inputVal}</b>`);
-    //captialize bold result
-    let boldResultCap = '';
-    if (boldResult[0] === '<') {
-      boldResultCap = `<b>${boldResult
-        .charAt(3)
-        .toUpperCase()}${boldResult.slice(4)}`;
-    } else {
-      boldResultCap = `${boldResult.charAt(0).toUpperCase()}${boldResult.slice(
-        1
-      )}`;
-    }
 
+    // capitalize bold result
+    const boldResultCap = capitalizeBoldResult(boldResult);
+
+    // add result string to the suggestion list
     resultItem.innerHTML = boldResultCap;
     suggestions.append(resultItem);
   });
 }
 
+// add suggestion to input.value clear the suggestions list
+// (only use inner text so there no bold letters)
 function useSuggestion(e) {
-  // add suggestion to input.value clear the suggestions list
   const suggestion = e.target.innerText;
   input.value = suggestion;
   clearSuggestions();
 }
 
+// clear the suggestions list
 function clearSuggestions() {
-  // clear the ul list
   suggestions.innerHTML = '';
+}
+
+// capitalize each word in the suggestion list
+function capitalizeBoldResult(boldResult) {
+  if (boldResult[0] === '<') {
+    return `<b>${boldResult.charAt(3).toUpperCase()}${boldResult.slice(4)}`;
+  } else {
+    return `${boldResult.charAt(0).toUpperCase()}${boldResult.slice(1)}`;
+  }
 }
 
 input.addEventListener('keyup', searchHandler);
